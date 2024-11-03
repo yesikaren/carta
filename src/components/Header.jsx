@@ -6,7 +6,6 @@ const Header = () => {
       <img src={MenuImage} alt="" />
       <h3 className='text-[#FFFFFF] text-lg font-semibold'>Pisis</h3>
       <div></div>
-
     </header>
   )
 }
