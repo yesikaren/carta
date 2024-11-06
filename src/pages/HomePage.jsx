@@ -10,15 +10,19 @@ import menu from "../assets/menu-negro.png";
 import Modal from "../components/Modal";
 import Card from "../components/Card";
 import Carrito from "../components/Carrito";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
     <main className="text-white">
       <div className="bg-[#A89497] relative ">
-      <div className="flex justify-between items-center px-6 pt-6">
-        <img src={menu} alt="" />
-        <img src={user} alt="" />
-      </div>
+        <div className="flex justify-between items-center px-6 pt-6">
+          <img src={menu} alt="" />
+          <Link to={"/login"}>
+            {" "}
+            <img src={user} alt="" />
+          </Link>
+        </div>
         <img src={ImagenCeviche} alt="" className="" />
       </div>
       <div className=" absolute top-72 border  rounded-lg w-36 h-36 bg-black  flex justify-center items-center">
@@ -45,9 +49,13 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <Modal/>
-      <div className="mt-4"><Card image={lornaFrita} /></div>
-      <div className="mt-4"><Carrito/></div>
+      <Modal />
+      <div className="mt-4">
+        <Card image={lornaFrita} />
+      </div>
+      <div className="mt-4">
+        <Carrito />
+      </div>
     </main>
   );
 };
