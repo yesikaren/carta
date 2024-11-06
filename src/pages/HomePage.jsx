@@ -10,9 +10,12 @@ import menu from "../assets/menu-negro.png";
 import Modal from "../components/Modal";
 import Card from "../components/Card";
 import Carrito from "../components/Carrito";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const HomePage = () => {
+  const location = useLocation()
+  const role = location.state?.role
+  console.log(role)
   return (
     <main className="text-white">
       <div className="bg-[#A89497] relative ">
