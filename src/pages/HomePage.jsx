@@ -7,6 +7,9 @@ import lornaFrita from "../assets/lorna-frita.png";
 import mariscos from "../assets/mariscos.png";
 import user from "../assets/user-negro.png";
 import menu from "../assets/menu-negro.png";
+import Modal from "../components/Modal";
+import Card from "../components/Card";
+import Carrito from "../components/Carrito";
 
 const HomePage = () => {
   return (
@@ -25,8 +28,7 @@ const HomePage = () => {
         pisis
       </h1>
       <section className="border mt-16">
-       
-        <div className="flex  justify-between items-center  gap-6 px-6 ">
+        <div className="flex justify-between items-center  gap-6 px-6 ">
           <div className="border bg-white rounded-md w-96 flex justify-center items-center">
             <img src={ImagenCeviche} alt="" className="h-40" />
           </div>
@@ -43,6 +45,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <Modal/>
+      <div className="mt-4"><Card image={lornaFrita} /></div>
+      <div className="mt-4"><Carrito/></div>
     </main>
   );
 };
