@@ -115,7 +115,13 @@ const HomePage = () => {
               <img src={user} alt="" />
             </Link>
           </div>
-          <img src={ImagenCeviche} alt="" className="" />
+          <div className="flex justify-center items-center ">
+            <img
+              src={ImagenCeviche}
+              alt="Imagen Ceviche"
+              className="w-full max-h-[310px] object-contain mx-auto"
+            />
+          </div>
         </div>
         <div className=" absolute top-72 border  rounded-lg w-36 h-36 bg-black  flex justify-center items-center">
           <img
