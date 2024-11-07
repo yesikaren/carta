@@ -130,7 +130,7 @@ const HomePage = () => {
             className=" rounded-r-3xl w-28"
           />
         </div>
-        <h1 className="flex justify-center items-center font-medium text-2xl mt-4 tracking-[12px] ml-40">
+        <h1 className="flex justify-center items-center font-medium text-xl sm:text-3xl mt-4 tracking-[12px] ml-40">
           Restaurante Piscis
         </h1>
         {userRole == "admin" ? (
@@ -142,7 +142,7 @@ const HomePage = () => {
         ) : (
           ""
         )}
-        <div className="flex justify-center flex-wrap gap-10 mt-10">
+        <div className="flex justify-center flex-wrap gap-10 mt-16">
           {productos.map((product) => (
             <Card
               key={product.id}
