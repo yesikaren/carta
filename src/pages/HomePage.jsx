@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ImagenCeviche from "../assets/ceviche.png";
 import ImageChicharonPez from "../assets/chicharron-pescadoo.png";
 import limonadaChicharron from "../assets/limonada-chicharron.png";
@@ -11,8 +11,10 @@ import Modal from "../components/Modal";
 import Card from "../components/Card";
 import Carrito from "../components/Carrito";
 import { Link, useLocation } from "react-router-dom";
+import { products } from "../data/data";
 
 const HomePage = () => {
+  const [productos,setProductos]=useState(products)
   const location = useLocation()
   const role = location.state?.role
   console.log(role)
@@ -31,34 +33,21 @@ const HomePage = () => {
       <div className=" absolute top-72 border  rounded-lg w-36 h-36 bg-black  flex justify-center items-center">
         <img src={limonadaChicharron} alt="" className=" rounded-r-3xl w-28" />
       </div>
-      <h1 className="flex justify-center items-center font-medium text-2xl mt-4 tracking-[12px]">
-        pisis
+      <h1 className="flex justify-center items-center font-medium text-2xl mt-4 tracking-[12px] ml-40">
+        Restaurante Piscis
       </h1>
-      <section className="border mt-16">
-        <div className="flex justify-between items-center  gap-6 px-6 ">
-          <div className="border bg-white rounded-md w-96 flex justify-center items-center">
-            <img src={ImagenCeviche} alt="" className="h-40" />
-          </div>
-          <div className="border bg-white rounded-md w-96 flex justify-center items-center ">
-            <img src={limonadaMenta} alt="" className="h-40" />
-          </div>
-        </div>
-        <div className="flex  justify-between items-center  gap-6 px-6 pt-8">
-          <div className="border bg-white rounded-md w-96 flex justify-center items-center">
-            <img src={mariscos} alt="" className="h-40" />
-          </div>
-          <div className="border bg-white rounded-md w-96 flex justify-center items-center ">
-            <img src={lornaFrita} alt="" className="h-40" />
-          </div>
-        </div>
-      </section>
-      <Modal />
-      <div className="mt-4">
-        <Card image={lornaFrita} />
+
+
+      <div className="flex justify-center flex-wrap gap-10 mt-10">
+        {
+          productos.map((product)=>(
+            <Card key={product.id} image={product.image} name={product.name} description={product.description} price={product.price} />
+
+          ))
+        }
+
       </div>
-      <div className="mt-4">
-        <Carrito />
-      </div>
+
     </main>
   );
 };
