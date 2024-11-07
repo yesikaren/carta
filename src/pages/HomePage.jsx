@@ -12,43 +12,58 @@ import Card from "../components/Card";
 import Carrito from "../components/Carrito";
 import { Link, useLocation } from "react-router-dom";
 import { products } from "../data/data";
+import Button from "../components/Button";
 
 const HomePage = () => {
-  const [productos,setProductos]=useState(products)
-  const location = useLocation()
-  const role = location.state?.role
-  console.log(role)
+  const [productos, setProductos] = useState(products);
+  const location = useLocation();
+  const role = location.state?.role;
+  console.log(role);
   return (
-    <main className="text-white">
-      <div className="bg-[#A89497] relative ">
-        <div className="flex justify-between items-center px-6 pt-6">
-          <img src={menu} alt="" />
-          <Link to={"/login"}>
-            {" "}
-            <img src={user} alt="" />
-          </Link>
+    <>
+      <main className="text-white">
+        <div className="bg-[#A89497] relative ">
+          <div className="flex justify-between items-center px-6 pt-6">
+            <img src={menu} alt="" />
+            <Link to={"/login"}>
+              {" "}
+              <img src={user} alt="" />
+            </Link>
+          </div>
+          <img src={ImagenCeviche} alt="" className="" />
         </div>
-        <img src={ImagenCeviche} alt="" className="" />
-      </div>
-      <div className=" absolute top-72 border  rounded-lg w-36 h-36 bg-black  flex justify-center items-center">
-        <img src={limonadaChicharron} alt="" className=" rounded-r-3xl w-28" />
-      </div>
-      <h1 className="flex justify-center items-center font-medium text-2xl mt-4 tracking-[12px] ml-40">
-        Restaurante Piscis
-      </h1>
+        <div className=" absolute top-72 border  rounded-lg w-36 h-36 bg-black  flex justify-center items-center">
+          <img
+            src={limonadaChicharron}
+            alt=""
+            className=" rounded-r-3xl w-28"
+          />
+        </div>
+        <h1 className="flex justify-center items-center font-medium text-2xl mt-4 tracking-[12px] ml-40">
+          Restaurante Piscis
+        </h1>
 
-
-      <div className="flex justify-center flex-wrap gap-10 mt-10">
         {
-          productos.map((product)=>(
-            <Card key={product.id} image={product.image} name={product.name} description={product.description} price={product.price} />
-
-          ))
+          role=="admin"?<div className="px-10 mt-10">
+          <Button className="w-full">Agregar Producto</Button>
+        </div>:""
         }
 
-      </div>
 
-    </main>
+
+        <div className="flex justify-center flex-wrap gap-10 mt-10">
+          {productos.map((product) => (
+            <Card
+              key={product.id}
+              image={product.image}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+            />
+          ))}
+        </div>
+      </main>
+    </>
   );
 };
 
