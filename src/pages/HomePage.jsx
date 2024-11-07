@@ -8,6 +8,7 @@ import Card from "../components/Card";
 import { Link, useLocation } from "react-router-dom";
 import { products } from "../data/data";
 import Button from "../components/Button";
+import { createProducto, deleteProducto, fetchProductos, updateProducto } from "../services/apiService";
 
 const HomePage = () => {
   const [productos, setProductos] = useState([]);
@@ -16,12 +17,11 @@ const HomePage = () => {
   const location = useLocation();
   const role = location.state?.role;
   console.log(role);
-  const fetchProductos = async () => {
+
+
+  const getProductos = async () => {
     try {
-      const response = await fetch(
-        "https://670f00b53e71518616564ce1.mockapi.io/yesi/productos"
-      );
-      const data = await response.json();
+      const data = await fetchProductos();
       setProductos(data);
     } catch (error) {
       console.error("Error al obtener los productos:", error);
@@ -29,7 +29,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchProductos();
+    getProductos();
   }, []);
   const handleAddProduct = () => {
     setModalData(null);
@@ -46,26 +46,16 @@ const HomePage = () => {
   };
   const handleSaveModal = async (data) => {
     try {
-      const response = await fetch(
-        "https://670f00b53e71518616564ce1.mockapi.io/yesi/productos",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      if (response.ok) {
-        const newProduct = await response.json();
-        setProductos([...productos, newProduct]);
-        console.log("Datos guardados:", newProduct);
+      let updatedProduct;
+      if (data.id && data.id !== "") {
+        updatedProduct = await updateProducto(data.id, data);
       } else {
-        console.error("Error al guardar el producto:", response.statusText);
+        updatedProduct = await createProducto(data);
       }
+      getProductos()
+      console.log("Datos guardados:", updatedProduct);
     } catch (error) {
-      console.error("Error al realizar la solicitud POST:", error);
+      console.error("Error al guardar el producto:", error);
     } finally {
       setShowModal(false);
       setModalData(null);
@@ -74,18 +64,10 @@ const HomePage = () => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      const response = await fetch(`https://670f00b53e71518616564ce1.mockapi.io/yesi/productos/${id}`, {
-        method: "DELETE",
-      });
-  
-      if (response.ok) {
-        setProductos((prevProductos) => prevProductos.filter((product) => product.id !== id)); // Elimina el producto del estado
-        console.log(`Producto con id ${id} eliminado`);
-      } else {
-        console.error("Error al eliminar el producto:", response.statusText);
-      }
+      await deleteProducto(id);
+      getProductos()
     } catch (error) {
-      console.error("Error al realizar la solicitud DELETE:", error);
+      console.error("Error al eliminar el producto:", error);
     }
   };
   return (

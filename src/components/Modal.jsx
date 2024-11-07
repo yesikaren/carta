@@ -4,6 +4,7 @@ import Button from "./Button";
 
 const Modal = ({ title = "Agregar", onCancel, onSave, initialData }) => {
   const [formData, setFormData] = useState({
+    id: initialData?.id || null,
     name: initialData?.name || "",
     image: initialData?.image || "",
     description: initialData?.description || "",
