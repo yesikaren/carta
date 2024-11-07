@@ -59,6 +59,9 @@ const HomePage = () => {
               name={product.name}
               description={product.description}
               price={product.price}
+              showActions={role=="admin"}
+              onEdit={()=>console.log("editando")}
+              onDelete={()=>console.log("eliminando")}
             />
           ))}
         </div>
