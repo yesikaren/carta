@@ -42,15 +42,19 @@ const HomePage = () => {
         <h1 className="flex justify-center items-center font-medium text-2xl mt-4 tracking-[12px] ml-40">
           Restaurante Piscis
         </h1>
-
-        {
-          role=="admin"?<div className="px-10 mt-10">
-          <Button className="w-full">Agregar Producto</Button>
-        </div>:""
-        }
-
-
-
+        {role == "admin" ? (
+          <div className="px-10 mt-10">
+            <Button className="w-full">Agregar Producto</Button>
+          </div>
+        ) : (
+          ""
+        )}
+        <div className="px-5">
+          <Modal
+            onCancel={() => console.log("cancelando modal")}
+            onSave={(data) => console.log("Datos guardados:", data)}
+          />
+        </div>{" "}
         <div className="flex justify-center flex-wrap gap-10 mt-10">
           {productos.map((product) => (
             <Card
@@ -59,9 +63,9 @@ const HomePage = () => {
               name={product.name}
               description={product.description}
               price={product.price}
-              showActions={role=="admin"}
-              onEdit={()=>console.log("editando")}
-              onDelete={()=>console.log("eliminando")}
+              showActions={role == "admin"}
+              onEdit={() => console.log("editando")}
+              onDelete={() => console.log("eliminando")}
             />
           ))}
         </div>
