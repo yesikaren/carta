@@ -1,26 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImagenCeviche from "../assets/ceviche.png";
-import ImageChicharonPez from "../assets/chicharron-pescadoo.png";
 import limonadaChicharron from "../assets/limonada-chicharron.png";
-import limonadaMenta from "../assets/limonada-menta.png";
-import lornaFrita from "../assets/lorna-frita.png";
-import mariscos from "../assets/mariscos.png";
 import user from "../assets/user-negro.png";
 import menu from "../assets/menu-negro.png";
 import Modal from "../components/Modal";
 import Card from "../components/Card";
-import Carrito from "../components/Carrito";
 import { Link, useLocation } from "react-router-dom";
 import { products } from "../data/data";
 import Button from "../components/Button";
 
 const HomePage = () => {
-  const [productos, setProductos] = useState(products);
+  const [productos, setProductos] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const location = useLocation();
   const role = location.state?.role;
   console.log(role);
+  const fetchProductos = async () => {
+    try {
+      const response = await fetch("https://670f00b53e71518616564ce1.mockapi.io/yesi/productos");
+      const data = await response.json();
+      setProductos(data);
+    } catch (error) {
+      console.error("Error al obtener los productos:", error);
+    }
+  };
+
+  useEffect(() => {  
+    fetchProductos();
+  }, []);
   const handleAddProduct = () => {
     setModalData(null);
     setShowModal(true);
@@ -93,6 +101,7 @@ const HomePage = () => {
               onCancel={handleCancelModal}
               onSave={handleSaveModal}
               initialData={modalData}
+              
             />
           </div>
         </div>

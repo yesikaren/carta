@@ -20,7 +20,7 @@ const LoginPage = () => {
   };
   return (
     <section className="flex justify-center items-center h-screen">
-      <div className="border bg-white p-10 rounded-xl shadow-xl">
+      <div className="border bg-white p-10 rounded-xl shadow-xl w-11/12">
         <p className="font-semibold text-center text-2xl mb-8">
           Iniciar sesión.
         </p>
@@ -52,12 +52,7 @@ const LoginPage = () => {
         >
           Ingresar
         </button>
-        <p className="text-[#A89497] mt-5">
-          ¿Todavia no tienes una cuenta?{" "}
-          <samp className="text-[#C7B8BC] hover:text-[#FDB6A6] duration-300 cursor-pointer">
-            Registrate
-          </samp>
-        </p>
+
       </div>
     </section>
   );

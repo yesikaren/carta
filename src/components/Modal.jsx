@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import xBlanco from "../assets/x-regular-blanco.png";
 import Button from "./Button";
+
 const Modal = ({ title = "Agregar", onCancel, onSave, initialData }) => {
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
