@@ -16,9 +16,29 @@ import Button from "../components/Button";
 
 const HomePage = () => {
   const [productos, setProductos] = useState(products);
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
   const location = useLocation();
   const role = location.state?.role;
   console.log(role);
+  const handleAddProduct = () => {
+    setModalData(null);
+    setShowModal(true);
+  };
+
+  const handleEditProduct = (product) => {
+    setModalData(product);
+    setShowModal(true);
+  };
+  const handleCancelModal = () => {
+    setShowModal(false);
+    setModalData(null);
+  };
+  const handleSaveModal = (data) => {
+    console.log("Datos guardados:", data);
+    setShowModal(false);
+    setModalData(null);
+  };
   return (
     <>
       <main className="text-white">
@@ -44,18 +64,14 @@ const HomePage = () => {
         </h1>
         {role == "admin" ? (
           <div className="px-10 mt-10">
-            <Button className="w-full">Agregar Producto</Button>
+            <Button className="w-full" onClick={handleAddProduct}>
+              Agregar Producto
+            </Button>
           </div>
         ) : (
           ""
         )}
-        <div className="px-5">
-          <Modal
-            onCancel={() => console.log("cancelando modal")}
-            onSave={(data) => console.log("Datos guardados:", data)}
-          />
-        </div>{" "}
-        <div className="flex justify-center flex-wrap gap-10 mt-10">
+         <div className="flex justify-center flex-wrap gap-10 mt-10">
           {productos.map((product) => (
             <Card
               key={product.id}
@@ -64,12 +80,23 @@ const HomePage = () => {
               description={product.description}
               price={product.price}
               showActions={role == "admin"}
-              onEdit={() => console.log("editando")}
+              onEdit={() => handleEditProduct(product)}
               onDelete={() => console.log("eliminando")}
             />
           ))}
         </div>
       </main>
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="w-11/12 max-w-lg">
+            <Modal
+              onCancel={handleCancelModal}
+              onSave={handleSaveModal}
+              initialData={modalData}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };
