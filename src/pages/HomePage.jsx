@@ -71,6 +71,23 @@ const HomePage = () => {
       setModalData(null);
     }
   };
+
+  const handleDeleteProduct = async (id) => {
+    try {
+      const response = await fetch(`https://670f00b53e71518616564ce1.mockapi.io/yesi/productos/${id}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        setProductos((prevProductos) => prevProductos.filter((product) => product.id !== id)); // Elimina el producto del estado
+        console.log(`Producto con id ${id} eliminado`);
+      } else {
+        console.error("Error al eliminar el producto:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud DELETE:", error);
+    }
+  };
   return (
     <>
       <main className="text-white">
@@ -113,7 +130,7 @@ const HomePage = () => {
               price={product.price}
               showActions={role == "admin"}
               onEdit={() => handleEditProduct(product)}
-              onDelete={() => console.log("eliminando")}
+              onDelete={() => handleDeleteProduct(product.id)}
             />
           ))}
         </div>
