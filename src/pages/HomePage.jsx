@@ -18,7 +18,9 @@ const HomePage = () => {
   console.log(role);
   const fetchProductos = async () => {
     try {
-      const response = await fetch("https://670f00b53e71518616564ce1.mockapi.io/yesi/productos");
+      const response = await fetch(
+        "https://670f00b53e71518616564ce1.mockapi.io/yesi/productos"
+      );
       const data = await response.json();
       setProductos(data);
     } catch (error) {
@@ -26,7 +28,7 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {  
+  useEffect(() => {
     fetchProductos();
   }, []);
   const handleAddProduct = () => {
@@ -42,10 +44,32 @@ const HomePage = () => {
     setShowModal(false);
     setModalData(null);
   };
-  const handleSaveModal = (data) => {
-    console.log("Datos guardados:", data);
-    setShowModal(false);
-    setModalData(null);
+  const handleSaveModal = async (data) => {
+    try {
+      const response = await fetch(
+        "https://670f00b53e71518616564ce1.mockapi.io/yesi/productos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        const newProduct = await response.json();
+        setProductos([...productos, newProduct]);
+        console.log("Datos guardados:", newProduct);
+      } else {
+        console.error("Error al guardar el producto:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud POST:", error);
+    } finally {
+      setShowModal(false);
+      setModalData(null);
+    }
   };
   return (
     <>
@@ -79,7 +103,7 @@ const HomePage = () => {
         ) : (
           ""
         )}
-         <div className="flex justify-center flex-wrap gap-10 mt-10">
+        <div className="flex justify-center flex-wrap gap-10 mt-10">
           {productos.map((product) => (
             <Card
               key={product.id}
@@ -101,7 +125,6 @@ const HomePage = () => {
               onCancel={handleCancelModal}
               onSave={handleSaveModal}
               initialData={modalData}
-              
             />
           </div>
         </div>
